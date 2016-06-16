@@ -1,4 +1,4 @@
-casper.test.begin('Check page copy appears', 3, function suite(test) {
+casper.test.begin('Give items', 3, function suite(test) {
     casper.start("https://streetsupport.net/give-help/give-items/", function() {
         test.assertTitle("Requests for Help - Street Support");
 
@@ -17,13 +17,12 @@ casper.test.begin('Check page copy appears', 3, function suite(test) {
         );
     });
 
-    /*casper.then(function() {
-        test.assertTitle("casperjs - Google Search", "google title is ok");
-        test.assertUrlMatch(/q=casperjs/, "search term has been submitted");
-        test.assertEval(function() {
-            return __utils__.findAll("h3.r").length >= 10;
-        }, "google search for \"casperjs\" retrieves 10 or more results");
-    });*/
+    casper.then(function() {
+        casper.waitForSelector('#js-card-list', function(){
+            test.assertExists('#js-card-list', 'Request listings appears');
+        });
+
+    });
 
     casper.run(function() {
         test.done();

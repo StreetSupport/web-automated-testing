@@ -27,20 +27,7 @@ gulp.task('build', () => {
       }
   });
 
-
-  try {
-    const path = config.outputDir
-    const stats = fs.lstatSync(path)
-    console.log(path + ' is file ' + stats.isDirectory())
-
-    if(!stats.isDirectory()) {
-      mkdirp(config.outputDir)
-    }
-  }
-  catch (e) {
-    console.log('error')
-    console.log(e)
-  }
+  mkdirp(config.outputDir)
 
   fs.readdir(__dirname, function(err, items) {
       console.log(items);

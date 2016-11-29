@@ -1,51 +1,54 @@
-// /* global phantom, casper */
-// const pages = require('../pages')
+/* global phantom, casper */
 
-// casper.test.setUp(function () {
-//   const Browser = require('../browser')
-//   const browser = new Browser(phantom)
+const pages = require('../pages')
+const page = pages.volunteer
+const Browser = require('../browser')
 
-//   browser.setLocation('manchester')
-// })
+const tests = {
+  onLoad: [
+    (test) => test.assertSelectorHasText(page.selectors.title, 'Volunteer'),
+    (test) => test.assertTitle('Volunteer - Street Support'),
+    (test) => test.assertExists(page.selectors.form, 'Form is available'),
+    (test) => test.assertNotVisible(page.selectors.failTitle),
+    (test) => test.assertNotVisible(page.selectors.successTitle)
+  ],
+  onFormSubmitted: [
+    (test) => test.assertNotVisible(page.selectors.form),
+    (test) => test.assertNotVisible(page.selectors.failTitle),
+    (test) => test.assertSelectorHasText(page.selectors.successTitle, 'Thank you for submitting your details!', 'Thank you message appears')
+  ]
+}
 
-// casper.test.begin('Volunteer', 4, function suite (test) {
+const totalTests = tests.onLoad.length + tests.onFormSubmitted.length
 
-//   casper.start(pages.volunteer.url, () => {
-//     casper.wait(10000, () => {
-//       console.log('waited 10 seconds')
-//     })
-//   })
+casper.test.begin('Volunteers', totalTests, function (test) {
+  new Browser(phantom).setLocation('manchester')
+  casper.start(page.url, function () {
+    casper.capture('./captures/volunteer/initial-load.png')
+    tests.onLoad.forEach(t => t(test))
+  })
 
-//   casper.then(() => {
-//     casper.capture('./captures/volunteer/initial-load.png')
-//     test.assertTitle('Volunteer - Street Support')
-//     test.assertExists('#js-form', 'Form is available')
-//     test.assertNotVisible('#js-fail h2')
-//     test.assertNotVisible('#js-success h2')
-//   })
+  casper.then(() => {
+    casper.waitUntilVisible('.js-current-city', () => {
+      const form = {}
+      form[page.selectors.firstNameInput] = 'Liz'
+      form[page.selectors.lastNameInput] = 'Lemon'
+      form[page.selectors.emailInput] = 'liz.lemon@tgs.com'
+      form[page.selectors.postcodeInput] = '30Rock'
+      casper.fillSelectors(page.selectors.form, form, true)
 
-//   casper.then(() => {
-//     casper.waitUntilVisible('.js-current-city', () => {
-//       casper.fillSelectors('form#js-form', {
-//         'input#firstname': 'Liz',
-//         'input#lastname': 'Lemon',
-//         'input#email': 'liz-lemon@tgs.com',
-//         'input#postcode': 'm3 1FY'
-//       }, true)
+      casper.capture('./captures/volunteer/filled-in-form.png')
+    })
+  })
 
-//       casper.capture('./captures/volunteer/filled-in-form.png')
-//     })
-//   })
+  casper.then(() => {
+    casper.waitUntilVisible(page.selectors.successTitle, () => {
+      tests.onFormSubmitted.forEach(t => t(test))
+      casper.capture('./captures/volunteer/submitted.png')
+    })
+  })
 
-//   casper.then(() => {
-//     casper.waitUntilVisible('#js-success', () => {
-//       test.assertNotVisible('#js-form')
-//       test.assertNotVisible('#js-fail h2')
-//       test.assertSelectorHasText('#js-success h2', 'Thank you for submitting your details!', 'Thank you message appears')
-//     }, () => { console.log('Success message did not appear') }, 10000)
-//   })
-
-//   casper.run(() => {
-//     test.done()
-//   })
-// })
+  casper.run(() => {
+    test.done()
+  })
+})

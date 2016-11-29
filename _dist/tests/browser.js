@@ -11,7 +11,7 @@ var Browser = function Browser(phantom) {
       name: 'desired-location',
       value: 'manchester'
     });
-    casper.echo('Start callback has cookie: ' + JSON.stringify(phantom.cookies));
+    //casper.echo('Start callback has cookie: ' + JSON.stringify(phantom.cookies))
   };
 };
 

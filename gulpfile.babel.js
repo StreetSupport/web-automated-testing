@@ -17,25 +17,7 @@ gulp.task('warm-api', () => {
 })
 
 gulp.task('build', () => {
-
-
-  fs.readdir(__dirname, function(err, items) {
-      console.log(items);
-
-      for (var i=0; i<items.length; i++) {
-          console.log(items[i]);
-      }
-  });
-
   mkdirp(config.outputDir)
-
-  fs.readdir(__dirname, function(err, items) {
-      console.log(items);
-
-      for (var i=0; i<items.length; i++) {
-          console.log(items[i]);
-      }
-  });
 
   gulp.src(config.testDir + '.js')
     .pipe(babel({
@@ -49,17 +31,17 @@ gulp.task('casper', () => {
 
   // console.log('Running tests matching: ' + builtTests)
 
-  // try {
-  //   const path = __dirname + '/_dist/homeTest.js'
-  //   const stats = fs.lstatSync(path)
-  //   console.log(path + ' is file ' + stats.isFile())
-  // }
-  // catch (e) {
-  //   console.log('error')
-  //   console.log(e)
-  // }
+  try {
+    const path = __dirname + '/_dist/homeTest.js'
+    const stats = fs.lstatSync(path)
+    console.log(path + ' is file ' + stats.isFile())
+  }
+  catch (e) {
+    console.log('error')
+    console.log(e)
+  }
 
-  fs.readdir(__dirname, function(err, items) {
+  fs.readdir(config.outputDir, function(err, items) {
       console.log(items);
 
       for (var i=0; i<items.length; i++) {

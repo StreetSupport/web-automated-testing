@@ -13,17 +13,16 @@ gulp.task('warm-api', () => {
 })
 
 gulp.task('build', () => {
-  return gulp.src('tests/**/*.js')
+  return gulp.src(config.testDir + '**/*.js')
     .pipe(babel({
       presets: ['es2015']
     }))
-    .pipe(gulp.dest('_dist/'))
+    .pipe(gulp.dest(config.outputDir))
 })
 
 gulp.task('casper', () => {
-  return gulp.src('_dist/**/*.js')
+  return gulp.src(config.outputDir + '**/*.js')
     .pipe(foreach((stream, file) => {
-      console.log('test:' + file.relative)
       return stream
         .pipe(casperJs())
     }))

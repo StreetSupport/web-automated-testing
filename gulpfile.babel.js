@@ -26,7 +26,7 @@ gulp.task('casper', () => {
   console.log('Running tests matching: ' + builtTests)
 
   try {
-    const path = __dirname + '_dist/homeTest.js'
+    const path = __dirname + '/_dist/homeTest.js'
     const stats = fs.lstatSync(path)
     console.log(path + ' is file ' + stats.isFile())
   }

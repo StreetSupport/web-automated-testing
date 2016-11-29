@@ -27,11 +27,11 @@ gulp.task('build', () => {
       }
   });
 
-  gulp.src(config.testDir + '.js')
+  gulp.src('tests/**/*.js')
     .pipe(babel({
       presets: ['es2015']
     }))
-    .pipe(gulp.dest(config.outputDir))
+    .pipe(gulp.dest('_dist/'))
 })
 
 gulp.task('casper', () => {
@@ -49,7 +49,7 @@ gulp.task('casper', () => {
     console.log(e)
   }
 
-  fs.readdir(config.outputDir, function(err, items) {
+  fs.readdir('_dist/', function(err, items) {
       console.log(items);
 
       for (var i=0; i<items.length; i++) {
@@ -58,7 +58,7 @@ gulp.task('casper', () => {
   });
 
 
-  gulp.src(__dirname + '_dist/homeTest.js')
+  gulp.src('_dist/homeTest.js')
     .pipe(foreach((stream, file) => {
       console.log('test:' + file.relative)
       return stream

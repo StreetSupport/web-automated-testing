@@ -23,3 +23,5 @@ sed -i "/^  const apiUri:/c \  const apiUri = api[$APIENVIRONMENT]" config.js
 
 # Run tests
 gulp
+
+echo $TRAVIS_BUILD_DIR

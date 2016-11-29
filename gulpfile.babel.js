@@ -19,6 +19,14 @@ gulp.task('warm-api', () => {
 gulp.task('build', () => {
   mkdirp(config.outputDir)
 
+  fs.readdir(config.testDir, function(err, items) {
+      console.log(items);
+
+      for (var i=0; i<items.length; i++) {
+          console.log(items[i]);
+      }
+  });
+
   gulp.src(config.testDir + '.js')
     .pipe(babel({
       presets: ['es2015']

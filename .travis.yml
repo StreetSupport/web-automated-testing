@@ -10,6 +10,7 @@ before_script:
 - npm install -g npm
 - npm install -g gulp-cli
 - npm install -g casperjs
+- npm install -g phantomjs
 - chmod +x ./deploy-website.sh
 script: "./deploy-website.sh"
 notifications:

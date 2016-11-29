@@ -26,7 +26,7 @@ gulp.task('casper', () => {
   console.log('Running tests matching: ' + builtTests)
   gulp.src(builtTests)
     .pipe(foreach((stream, file) => {
-      console.log(file)
+      console.log('test:' + file.relative)
       return stream
     }))
     .pipe(casperJs())

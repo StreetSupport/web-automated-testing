@@ -18,7 +18,6 @@ gulp.task('warm-api', () => {
 
 gulp.task('build', () => {
   mkdirp(config.outputDir)
-  console.log(config.testDir)
   fs.readdir('tests/', function(err, items) {
       console.log(items);
 
@@ -32,13 +31,18 @@ gulp.task('build', () => {
       presets: ['es2015']
     }))
     .pipe(gulp.dest('_dist/'))
+
+
+  fs.readdir('_dist/', function(err, items) {
+      console.log(items);
+
+      for (var i=0; i<items.length; i++) {
+          console.log(items[i]);
+      }
+  });
 })
 
 gulp.task('casper', () => {
-  // const builtTests = config.outputDir + '*Test.js'
-
-  // console.log('Running tests matching: ' + builtTests)
-
   try {
     const path = __dirname + '/_dist/homeTest.js'
     const stats = fs.lstatSync(path)

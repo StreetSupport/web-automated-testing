@@ -21,7 +21,7 @@ gulp.task('build', () => {
 })
 
 gulp.task('casper', () => {
-  return gulp.src(config.outputDir + '**/*Test.js')
+  return gulp.src(config.outputDir + '**/*.js')
     .pipe(foreach((stream, file) => {
       return stream
         .pipe(casperJs())

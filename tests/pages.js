@@ -1,6 +1,8 @@
 const local = 'http://localhost:3000/'
 const ci = 'https://dev-web-streetsupport.azurewebsites.net/'
-const root = ci
+const uat = 'https://uat-web-streetsupport.azurewebsites.net/'
+const prod = 'https://streetsupport.net/'
+const root = prod
 const domain = root.match(/^https?:\/\/(.*):?.*\/$/)[1]
 
 const pages = {

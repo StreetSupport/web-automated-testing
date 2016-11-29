@@ -18,8 +18,8 @@ gulp.task('warm-api', () => {
 
 gulp.task('build', () => {
   mkdirp(config.outputDir)
-
-  fs.readdir(config.testDir, function(err, items) {
+  console.log(config.testDir)
+  fs.readdir('tests/', function(err, items) {
       console.log(items);
 
       for (var i=0; i<items.length; i++) {

@@ -19,9 +19,6 @@ if [[ $TRAVIS_BRANCH == 'master' ]]
     APIENVIRONMENT=1
 fi
 
-echo $TRAVIS_BUILD_DIR
-
-
 sed -i "/^  const apiUri:/c \  const apiUri = api[$APIENVIRONMENT]" config.js
 
 # Run tests

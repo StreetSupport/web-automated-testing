@@ -1,5 +1,5 @@
-const outputDir = './_dist/tests'
-const testDir = './tests/**/*'
+const outputDir = __dirname + '/_dist/tests'
+const testDir = __dirname + '/tests/**/*'
 const api = [
   'https://dev-api-streetsupport.azurewebsites.net/v2/service-categories',
   'https://staging-api-streetsupport.azurewebsites.net/v2/service-categories',

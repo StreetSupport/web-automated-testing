@@ -6,8 +6,6 @@ import foreach from 'gulp-foreach'
 import casperJs from 'gulp-casperjs'
 import download from 'gulp-download'
 import runSequence from 'run-sequence'
-const fs = require('fs');
-
 import * as config from './config'
 
 gulp.task('warm-api', () => {
@@ -23,15 +21,7 @@ gulp.task('build', () => {
 })
 
 gulp.task('casper', () => {
-  const dir = config.outputDir
   const builtTests = config.outputDir + '/**/*Test.js'
-
-
-  fs.readdir(dir, (err, files) => {
-    files.forEach(file => {
-      console.log(file)
-    });
-  })
 
   console.log('Running tests matching: ' + builtTests)
   gulp.src(builtTests)

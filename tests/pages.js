@@ -1,8 +1,10 @@
 const local = 'http://localhost:3000/'
 const ci = 'https://dev-web-streetsupport.azurewebsites.net/'
-let root = local
+const root = ci
+const domain = root.match(/^https?:\/\/(.*):?.*\/$/)[1]
 
 const pages = {
+  domain: domain,
   home: {
     url: root
   },

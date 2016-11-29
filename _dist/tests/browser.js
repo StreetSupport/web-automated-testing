@@ -1,13 +1,13 @@
 'use strict';
 
-/* global casper */
+var pages = require('./pages');
 
 var Browser = function Browser(phantom) {
   if (!phantom.cookiesEnabled) throw 'Cookies not enabled';
 
   this.setLocation = function (location) {
     phantom.addCookie({
-      domain: 'localhost',
+      domain: pages.domain,
       name: 'desired-location',
       value: 'manchester'
     });

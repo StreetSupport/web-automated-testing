@@ -2,9 +2,11 @@
 
 var local = 'http://localhost:3000/';
 var ci = 'https://dev-web-streetsupport.azurewebsites.net/';
-var root = local;
+var root = ci;
+var domain = root.match(/^https?:\/\/(.*):?.*\/$/)[1];
 
 var pages = {
+  domain: domain,
   home: {
     url: root
   },

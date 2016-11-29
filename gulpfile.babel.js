@@ -26,20 +26,11 @@ gulp.task('build', () => {
       }
   });
 
-  gulp.src('tests/**/*.js')
+  return gulp.src('tests/**/*.js')
     .pipe(babel({
       presets: ['es2015']
     }))
     .pipe(gulp.dest('_dist/'))
-
-
-  fs.readdir('_dist/', function(err, items) {
-      console.log(items);
-
-      for (var i=0; i<items.length; i++) {
-          console.log(items[i]);
-      }
-  });
 })
 
 gulp.task('casper', () => {
@@ -62,7 +53,7 @@ gulp.task('casper', () => {
   });
 
 
-  gulp.src('_dist/homeTest.js')
+  return gulp.src('_dist/homeTest.js')
     .pipe(foreach((stream, file) => {
       console.log('test:' + file.relative)
       return stream

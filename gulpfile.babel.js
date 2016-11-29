@@ -24,7 +24,7 @@ gulp.task('casper', () => {
   const builtTests = config.outputDir + '*Test.js'
 
   console.log('Running tests matching: ' + builtTests)
-  gulp.src(builtTests)
+  gulp.src(__dirname + '_dist/homeTest.js')
     .pipe(foreach((stream, file) => {
       console.log('test:' + file.relative)
       return stream

@@ -8,6 +8,7 @@ import download from 'gulp-download'
 import runSequence from 'run-sequence'
 import * as config from './config'
 import del from 'del'
+import mkdirp from 'mkdirp'
 
 
 var fs = require('fs');
@@ -16,9 +17,38 @@ gulp.task('warm-api', () => {
 })
 
 gulp.task('build', () => {
-  del([
-    config.outputDir
-  ])
+
+
+  fs.readdir(__dirname, function(err, items) {
+      console.log(items);
+
+      for (var i=0; i<items.length; i++) {
+          console.log(items[i]);
+      }
+  });
+
+
+  try {
+    const path = config.outputDir
+    const stats = fs.lstatSync(path)
+    console.log(path + ' is file ' + stats.isDirectory())
+
+    if(!stats.isDirectory()) {
+      mkdirp(config.outputDir)
+    }
+  }
+  catch (e) {
+    console.log('error')
+    console.log(e)
+  }
+
+  fs.readdir(__dirname, function(err, items) {
+      console.log(items);
+
+      for (var i=0; i<items.length; i++) {
+          console.log(items[i]);
+      }
+  });
 
   gulp.src(config.testDir + '.js')
     .pipe(babel({

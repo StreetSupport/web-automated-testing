@@ -1,4 +1,4 @@
-# Website automated testing
+# Automated tests for streetsupport.net
 
 ## Requirements
 - CasperJS (minimum v1.1)

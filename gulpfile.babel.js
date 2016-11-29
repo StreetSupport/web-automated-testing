@@ -16,46 +16,22 @@ gulp.task('warm-api', () => {
   download(config.apiUri)
 })
 
+gulp.task('clean', () => {
+  return del([config.outputDir])
+})
+
 gulp.task('build', () => {
-  mkdirp(config.outputDir)
-  fs.readdir('tests/', function(err, items) {
-      console.log(items);
-
-      for (var i=0; i<items.length; i++) {
-          console.log(items[i]);
-      }
-  });
-
-  return gulp.src('tests/**/*.js')
+  return gulp.src(config.testDir + '/**/*.js')
     .pipe(babel({
       presets: ['es2015']
     }))
-    .pipe(gulp.dest('_dist/'))
+    .pipe(gulp.dest(config.outputDir))
 })
 
 gulp.task('casper', () => {
-  try {
-    const path = __dirname + '/_dist/homeTest.js'
-    const stats = fs.lstatSync(path)
-    console.log(path + ' is file ' + stats.isFile())
-  }
-  catch (e) {
-    console.log('error')
-    console.log(e)
-  }
-
-  fs.readdir('_dist/', function(err, items) {
-      console.log(items);
-
-      for (var i=0; i<items.length; i++) {
-          console.log(items[i]);
-      }
-  });
-
-
-  return gulp.src('_dist/homeTest.js')
+  return gulp.src(config.outputDir + '/**/*Test.js')
     .pipe(foreach((stream, file) => {
-      console.log('test:' + file.relative)
+      console.log('test: ' + file.relative)
       return stream
         .pipe(casperJs())
     }))
@@ -68,6 +44,7 @@ gulp.task('watch', () => {
 gulp.task('dev', (callback) => {
   runSequence(
     'warm-api',
+    'clean',
     'build',
     'casper',
     'watch',
@@ -75,10 +52,10 @@ gulp.task('dev', (callback) => {
   )
 })
 
-
 gulp.task('default', (callback) => {
   runSequence(
     'warm-api',
+    'clean',
     'build',
     'casper',
     callback

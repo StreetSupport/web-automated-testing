@@ -1,6 +1,6 @@
 /* global casper, phantom */
-const pages = require('../pages')
-const Browser = require('../browser')
+const pages = require('./pages')
+const Browser = require('./browser')
 
 casper.test.begin('Home', 1, function (test) {
   new Browser(phantom).setLocation('manchester')

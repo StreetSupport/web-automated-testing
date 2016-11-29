@@ -7,7 +7,7 @@ import casperJs from 'gulp-casperjs'
 import download from 'gulp-download'
 import runSequence from 'run-sequence'
 import * as config from './config'
-
+var fs = require('fs');
 gulp.task('warm-api', () => {
   download(config.apiUri)
 })
@@ -24,6 +24,16 @@ gulp.task('casper', () => {
   const builtTests = config.outputDir + '*Test.js'
 
   console.log('Running tests matching: ' + builtTests)
+
+  try {
+    const path = path.join(__dirname, '_dist/homeTest.js')
+    const stats = fs.lstatSync(path)
+    console.log(path + ' is file ' + stats.isFile())
+  }
+  catch (e) {
+      // ...
+  }
+
   gulp.src(__dirname + '_dist/homeTest.js')
     .pipe(foreach((stream, file) => {
       console.log('test:' + file.relative)

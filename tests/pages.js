@@ -1,8 +1,8 @@
-const local = 'http://localhost:3000/'
-const ci = 'https://dev-web-streetsupport.azurewebsites.net/'
-const uat = 'https://uat-web-streetsupport.azurewebsites.net/'
-const prod = 'https://streetsupport.net/'
-const root = prod
+const local = 'http://localhost:3000/' // eslint-disable-line
+const ci = 'https://dev-web-streetsupport.azurewebsites.net/' // eslint-disable-line
+const uat = 'https://uat-web-streetsupport.azurewebsites.net/' // eslint-disable-line
+const prod = 'https://streetsupport.net/' // eslint-disable-line
+const root = ci
 const domain = root.match(/^https?:\/\/(.*):?.*\/$/)[1]
 
 const pages = {

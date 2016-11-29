@@ -31,7 +31,8 @@ gulp.task('casper', () => {
     console.log(path + ' is file ' + stats.isFile())
   }
   catch (e) {
-      // ...
+    console.log('error')
+    console.log(e)
   }
 
   gulp.src(__dirname + '_dist/homeTest.js')

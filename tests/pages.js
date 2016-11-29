@@ -10,6 +10,20 @@ const pages = {
   home: {
     url: root
   },
+  offerItem: {
+    url: root + 'give-help/offer-items/',
+    selectors: {
+      title: '.block__header',
+      form: 'form#js-form',
+      successTitle: '#js-success h2',
+      failTitle: '#js-fail h2',
+      firstNameInput: 'input[data-bind="textInput: firstName"]',
+      lastNameInput: 'input[data-bind="textInput: lastName"]',
+      emailInput: 'input[data-bind="textInput: email"]',
+      postcodeInput: 'input[data-bind="textInput: postcode"]',
+      descriptionInput: 'input[data-bind="textInput: description"]'
+    }
+  },
   volunteer: {
     url: root + 'give-help/volunteer/',
     selectors: {

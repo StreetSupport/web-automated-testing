@@ -21,19 +21,28 @@ gulp.task('build', () => {
 })
 
 gulp.task('casper', () => {
-  const builtTests = config.outputDir + '*Test.js'
+  // const builtTests = config.outputDir + '*Test.js'
 
-  console.log('Running tests matching: ' + builtTests)
+  // console.log('Running tests matching: ' + builtTests)
 
-  try {
-    const path = __dirname + '/_dist/homeTest.js'
-    const stats = fs.lstatSync(path)
-    console.log(path + ' is file ' + stats.isFile())
-  }
-  catch (e) {
-    console.log('error')
-    console.log(e)
-  }
+  // try {
+  //   const path = __dirname + '/_dist/homeTest.js'
+  //   const stats = fs.lstatSync(path)
+  //   console.log(path + ' is file ' + stats.isFile())
+  // }
+  // catch (e) {
+  //   console.log('error')
+  //   console.log(e)
+  // }
+
+  fs.readdir(__dirname, function(err, items) {
+      console.log(items);
+
+      for (var i=0; i<items.length; i++) {
+          console.log(items[i]);
+      }
+  });
+
 
   gulp.src(__dirname + '_dist/homeTest.js')
     .pipe(foreach((stream, file) => {

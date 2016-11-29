@@ -30,12 +30,22 @@ gulp.task('watch', () => {
   gulp.watch(testDir, ['build', 'casper'])
 })
 
-gulp.task('default', (callback) => {
+gulp.task('dev', (callback) => {
   runSequence(
     'warm-api',
     'build',
     'casper',
     'watch',
+    callback
+  )
+})
+
+
+gulp.task('default', (callback) => {
+  runSequence(
+    'warm-api',
+    'build',
+    'casper',
     callback
   )
 })

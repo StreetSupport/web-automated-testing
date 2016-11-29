@@ -1,4 +1,4 @@
-const outputDir = '_dist/tests'
+const outputDir = '_dist/'
 const testDir = 'tests/**/*'
 const api = [
   'https://dev-api-streetsupport.azurewebsites.net/v2/service-categories',

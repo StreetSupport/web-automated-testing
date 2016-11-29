@@ -2,6 +2,7 @@
 
 import gulp from 'gulp'
 import babel from 'gulp-babel'
+import foreach from 'gulp-foreach'
 import casperJs from 'gulp-casperjs'
 import download from 'gulp-download'
 import runSequence from 'run-sequence'
@@ -24,6 +25,10 @@ gulp.task('casper', () => {
   const builtTests = config.outputDir + '/**/*Test.js'
   console.log('Running tests matching: ' + builtTests)
   gulp.src(builtTests)
+    .pipe(foreach((stream, file) => {
+      console.log(file)
+      return stream
+    }))
     .pipe(casperJs())
 })
 

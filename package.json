@@ -23,6 +23,7 @@
     "gulp-babel": "^6.1.2",
     "gulp-casperjs": "0.0.6",
     "gulp-download": "0.0.1",
+    "gulp-foreach": "^0.1.0",
     "run-sequence": "^1.2.2"
   },
   "dependencies": {

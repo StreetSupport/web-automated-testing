@@ -21,7 +21,9 @@ gulp.task('build', () => {
 })
 
 gulp.task('casper', () => {
-  gulp.src(config.outputDir + '/**/*Test.js')
+  const builtTests = config.outputDir + '/**/*Test.js'
+  console.log('Running tests matching: ' + builtTests)
+  gulp.src(builtTests)
     .pipe(casperJs())
 })
 

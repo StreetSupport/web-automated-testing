@@ -19,13 +19,13 @@
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-preset-es2015": "^6.18.0",
+    "casperjs": "^1.1.3",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-casperjs": "0.0.6",
     "gulp-download": "0.0.1",
-    "gulp-foreach": "^0.1.0",
-    "mkdirp": "^0.5.1",
+    "phantomjs": "^2.1.7",
     "run-sequence": "^1.2.2"
   },
   "dependencies": {

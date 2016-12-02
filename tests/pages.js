@@ -21,7 +21,8 @@ const pages = {
       lastNameInput: 'input[data-bind="textInput: lastName"]',
       emailInput: 'input[data-bind="textInput: email"]',
       postcodeInput: 'input[data-bind="textInput: postcode"]',
-      descriptionInput: 'input[data-bind="textInput: description"]'
+      descriptionInput: 'input[data-bind="textInput: description"]',
+      otherCategory: 'input[data-bind="textInput: otherCategory"]'
     }
   },
   volunteer: {

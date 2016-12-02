@@ -36,6 +36,7 @@ casper.test.begin('Offer Items', totalTests, function (test) {
       form[page.selectors.emailInput] = 'liz.lemon@tgs.com'
       form[page.selectors.postcodeInput] = '30Rock'
       form[page.selectors.descriptionInput] = 'offer description'
+      form[page.selectors.otherCategory] = 'other category description'
       casper.fillSelectors(page.selectors.form, form, true)
 
       casper.capture('./captures/offer-items/filled-in-form.png')

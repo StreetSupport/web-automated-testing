@@ -17,7 +17,7 @@ gulp.task('clean', () => {
   return del([config.outputDir])
 })
 
-gulp.task('build', () => {
+gulp.task('build', ['clean'] () => {
   return gulp.src(config.testDir + '/**/*.js')
     .pipe(babel({
       presets: ['es2015']
@@ -25,7 +25,7 @@ gulp.task('build', () => {
     .pipe(gulp.dest(config.outputDir))
 })
 
-gulp.task('casper', () => {
+gulp.task('casper', ['warm-api', 'build'], () => {
   return gulp
     .src(config.outputDir + '/**/*Test.js')
     .pipe(casperJs({
@@ -39,9 +39,6 @@ gulp.task('watch', () => {
 
 gulp.task('dev', (callback) => {
   runSequence(
-    'warm-api',
-    'clean',
-    'build',
     'casper',
     'watch',
     callback
@@ -50,9 +47,6 @@ gulp.task('dev', (callback) => {
 
 gulp.task('default', (callback) => {
   runSequence(
-    'warm-api',
-    'clean',
-    'build',
     'casper',
     callback
   )

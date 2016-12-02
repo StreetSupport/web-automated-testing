@@ -10,7 +10,7 @@ import del from 'del'
 
 
 gulp.task('warm-api', () => {
-  download(config.apiUri)
+  return download(config.apiUri)
 })
 
 gulp.task('clean', () => {

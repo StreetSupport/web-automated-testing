@@ -17,7 +17,7 @@ gulp.task('clean', () => {
   return del([config.outputDir])
 })
 
-gulp.task('build', ['clean'] () => {
+gulp.task('build', ['clean'], () => {
   return gulp.src(config.testDir + '/**/*.js')
     .pipe(babel({
       presets: ['es2015']

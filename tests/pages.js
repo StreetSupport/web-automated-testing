@@ -37,6 +37,18 @@ const pages = {
       emailInput: 'input#email',
       postcodeInput: 'input#postcode'
     }
+  },
+  findHelpCategories: {
+    url: root + 'find-help/',
+    selectors: {
+      categoryList: '.result-grid',
+      categoryItem: '.cta',
+      accommodationLink: 'a[href="category/?category=accom"]',
+      findHelpTitle: '.block__header--find-help',
+      serviceList: '.accordion__header',
+      categoryLocationDropdown: '.js-find-help-dropdown',
+      categoryRangeDropdown: '.js-find-help-range'
+    }
   }
 }
 

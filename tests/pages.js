@@ -11,7 +11,7 @@ const pages = {
     url: root
   },
   offerItem: {
-    url: root + 'give-help/offer-items/',
+    url: `${root}give-help/offer-items/`,
     selectors: {
       title: '.block__header',
       form: 'form#js-form',
@@ -26,7 +26,7 @@ const pages = {
     }
   },
   volunteer: {
-    url: root + 'give-help/volunteer/',
+    url: `${root}give-help/volunteer/`,
     selectors: {
       title: '.block__header',
       form: 'form#js-form',
@@ -39,7 +39,7 @@ const pages = {
     }
   },
   findHelpCategories: {
-    url: root + 'find-help/',
+    url: `${root}find-help/`,
     selectors: {
       categoryList: '.result-grid',
       categoryItem: '.cta',
@@ -48,6 +48,12 @@ const pages = {
       serviceList: '.accordion__header',
       categoryLocationDropdown: '.js-find-help-dropdown',
       categoryRangeDropdown: '.js-find-help-range'
+    }
+  },
+  giveHelp: {
+    url: `${root}give-help/help/`,
+    selectors: {
+      item: '.requests-listing__link'
     }
   }
 }

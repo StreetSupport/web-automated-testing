@@ -3,7 +3,7 @@ const pages = require('./pages')
 const page = pages.findHelpCategories
 const Browser = require('./browser')
 
-casper.test.begin('FindHelp', 4, function (test) {
+casper.test.begin('Find Help', 4, function (test) {
   new Browser(phantom).setLocation('manchester')
   casper.start(page.url, function () {
     casper.capture('./captures/find-help/initial-load.png')

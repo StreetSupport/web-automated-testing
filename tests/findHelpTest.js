@@ -1,13 +1,35 @@
-/* global casper, phantom, $ */
+/* global casper, phantom, __utils__, $ */
 const pages = require('./pages')
 const page = pages.findHelpCategories
 const Browser = require('./browser')
 
-casper.test.begin('Find Help', 4, function (test) {
+const initialPos = { timestamp: Date.now(), coords: {latitude: 53.4624043, longitude: -2.2401217, accuracy: 10} } // manchester uni
+const geo = require('casperjs-geolocation')(casper, initialPos)
+
+casper.test.begin('Find Help', 3, function (test) {
   new Browser(phantom).setLocation('manchester')
+
   casper.start(page.url, function () {
     casper.capture('./captures/find-help/initial-load.png')
+  })
+
+  casper.then(function () {
+    geo.setPos({latitude: 20, longitude: 20, accuracy: 10})
+    casper.capture('./captures/find-help/after-geo.png')
+  })
+
+  casper.then(function () {
+    casper.evaluate(() => {
+      const sel = document.querySelector('.js-modal-location-dropdown')
+      sel.selectedIndex = 1 // manchester
+      $(sel).change()
+    })
+    casper.capture('./captures/find-help/after-select-manchester.png')
+  })
+
+  casper.then(() => {
     casper.waitUntilVisible(page.selectors.categoryList, () => {
+      casper.capture('./captures/find-help/categories.png')
       test.assertEval(() => {
         const categories = __utils__.findAll('.cta')
         return categories.length === 12
@@ -16,7 +38,7 @@ casper.test.begin('Find Help', 4, function (test) {
   })
 
   casper.then(() => {
-    casper.click('a[href="category/?category=accom"]')
+    casper.click('#accom')
     casper.waitUntilVisible('.block__header--find-help', () => {
       casper.capture('./captures/find-help/mcr-accom-services.png')
       test.assertSelectorHasText('.block__header--find-help', 'Accommodation', 'Service category title appears')
@@ -24,33 +46,9 @@ casper.test.begin('Find Help', 4, function (test) {
         const providers = __utils__.findAll('.accordion__header')
         return providers.length === 10
       }, 'displays Manchester service providers')
-    })
-  })
-
-  casper.then(() => {
-    casper.click('.js-find-help-dropdown')
-    casper.evaluate(() => {
-      const form = document.querySelector('.js-find-help-dropdown')
-      form.selectedIndex = 0
-      $(form).change()
-    })
-    casper.evaluate(() => {
-      const form = document.querySelector('.js-find-help-range')
-      form.selectedIndex = 3
-      $(form).change()
-    })
-    casper.click('.js-find-help-submit')
-    casper.waitUntilVisible('.nav__item--leeds', () => {
-      casper.capture('./captures/find-help/leeds-accom-services.png')
-      casper.waitUntilVisible('.js-accordion', () => {
-        casper.capture('./captures/find-help/leeds-accom-services2.png')
-          test.assertEval(() => {
-            const providers = __utils__.findAll('.accordion__header')
-            console.log(providers.length)
-            return providers.length === 6
-          }, 'displays Leeds service providers')
-        })
-    })
+    }, () => {
+      casper.capture('./captures/find-help/mcr-accom-services--fail.png')
+    }, 10000)
   })
 
   casper.run(() => {

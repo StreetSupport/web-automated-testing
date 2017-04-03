@@ -4,6 +4,9 @@ const pages = require('./pages')
 const page = pages.volunteer
 const Browser = require('./browser')
 
+import { ScreenCapture } from '/screen-capture'
+const cap = new ScreenCapture('volunteer', casper)
+
 const tests = {
   onLoad: [
     (test) => test.assertSelectorHasText(page.selectors.title, 'Volunteer'),
@@ -24,7 +27,7 @@ const totalTests = tests.onLoad.length + tests.onFormSubmitted.length
 casper.test.begin('Volunteers', totalTests, function (test) {
   new Browser(phantom).setLocation('manchester')
   casper.start(page.url, function () {
-    casper.capture('./captures/volunteer/initial-load.png')
+    cap.snapshot('initial-load')
     tests.onLoad.forEach(t => t(test))
   })
 
@@ -37,14 +40,14 @@ casper.test.begin('Volunteers', totalTests, function (test) {
       form[page.selectors.postcodeInput] = '30Rock'
       casper.fillSelectors(page.selectors.form, form, true)
 
-      casper.capture('./captures/volunteer/filled-in-form.png')
+      cap.snapshot('filled-in-form')
     })
   })
 
   casper.then(() => {
     casper.waitUntilVisible(page.selectors.successTitle, () => {
       tests.onFormSubmitted.forEach(t => t(test))
-      casper.capture('./captures/volunteer/submitted.png')
+      cap.snapshot('submitted')
     })
   })
 

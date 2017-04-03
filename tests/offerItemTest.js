@@ -4,6 +4,9 @@ const pages = require('./pages')
 const page = pages.offerItem
 const Browser = require('./browser')
 
+import { ScreenCapture } from '/screen-capture'
+const cap = new ScreenCapture('offer-item', casper)
+
 const tests = {
   onLoad: [
     (test) => test.assertSelectorHasText(page.selectors.title, 'Offer Items'),
@@ -24,7 +27,7 @@ const totalTests = tests.onLoad.length + tests.onFormSubmitted.length
 casper.test.begin('Offer Items', totalTests, function (test) {
   new Browser(phantom).setLocation('manchester')
   casper.start(page.url, function () {
-    casper.capture('./captures/offer-items/initial-load.png')
+    cap.snapshot('initial-load')
     tests.onLoad.forEach(t => t(test))
   })
 
@@ -39,14 +42,14 @@ casper.test.begin('Offer Items', totalTests, function (test) {
       form[page.selectors.otherCategory] = 'other category description'
       casper.fillSelectors(page.selectors.form, form, true)
 
-      casper.capture('./captures/offer-items/filled-in-form.png')
+      cap.snapshot('filled-in-form')
     })
   })
 
   casper.then(() => {
     casper.waitUntilVisible(page.selectors.successTitle, () => {
       tests.onFormSubmitted.forEach(t => t(test))
-      casper.capture('./captures/offer-items/submitted.png')
+      cap.snapshot('submitted')
     })
   })
 

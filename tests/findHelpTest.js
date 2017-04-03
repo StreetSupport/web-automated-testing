@@ -3,6 +3,9 @@ const pages = require('./pages')
 const page = pages.findHelpCategories
 const Browser = require('./browser')
 
+import { ScreenCapture } from '/screen-capture'
+const cap = new ScreenCapture('find-help', casper)
+
 const initialPos = { timestamp: Date.now(), coords: {latitude: 53.4624043, longitude: -2.2401217, accuracy: 10} } // manchester uni
 const geo = require('casperjs-geolocation')(casper, initialPos)
 
@@ -10,12 +13,12 @@ casper.test.begin('Find Help', 3, function (test) {
   new Browser(phantom).setLocation('manchester')
 
   casper.start(page.url, function () {
-    casper.capture('./captures/find-help/initial-load.png')
+    cap.snapshot('initial-load')
   })
 
   casper.then(function () {
     geo.setPos({latitude: 20, longitude: 20, accuracy: 10})
-    casper.capture('./captures/find-help/after-geo.png')
+    cap.snapshot('after-geo')
   })
 
   casper.then(function () {
@@ -24,12 +27,12 @@ casper.test.begin('Find Help', 3, function (test) {
       sel.selectedIndex = 1 // manchester
       $(sel).change()
     })
-    casper.capture('./captures/find-help/after-select-manchester.png')
+    cap.snapshot('after-select-manchester')
   })
 
   casper.then(() => {
     casper.waitUntilVisible(page.selectors.categoryList, () => {
-      casper.capture('./captures/find-help/categories.png')
+      cap.snapshot('categories')
       test.assertEval(() => {
         const categories = __utils__.findAll('.cta')
         return categories.length === 12
@@ -40,14 +43,14 @@ casper.test.begin('Find Help', 3, function (test) {
   casper.then(() => {
     casper.click('#accom')
     casper.waitUntilVisible('.block__header--find-help', () => {
-      casper.capture('./captures/find-help/mcr-accom-services.png')
+      cap.snapshot('mcr-accom-services')
       test.assertSelectorHasText('.block__header--find-help', 'Accommodation', 'Service category title appears')
       test.assertEval(() => {
         const providers = __utils__.findAll('.accordion__header')
         return providers.length === 10
       }, 'displays Manchester service providers')
     }, () => {
-      casper.capture('./captures/find-help/mcr-accom-services--fail.png')
+      cap.snapshot('mcr-accom-services--fail')
     }, 10000)
   })
 

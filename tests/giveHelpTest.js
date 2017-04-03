@@ -3,6 +3,9 @@ const pages = require('./pages')
 const page = pages.giveHelp
 const Browser = require('./browser')
 
+import { ScreenCapture } from '/screen-capture'
+const cap = new ScreenCapture('give-help', casper)
+
 const initialPos = { timestamp: Date.now(), coords: {latitude: 10, longitude: 10, accuracy: 10} }
 const geo = require('casperjs-geolocation')(casper, initialPos)
 
@@ -10,17 +13,17 @@ casper.test.begin('Give Help', 2, function (test) {
   new Browser(phantom).setLocation('manchester')
 
   casper.start(page.url, function () {
-    casper.capture('./captures/give-help/initial-load.png')
+    cap.snapshot('initial-load')
   })
 
   casper.then(function () {
     geo.setPos({latitude: 20, longitude: 20, accuracy: 10})
-    casper.capture('./captures/give-help/after-geo.png')
+    cap.snapshot('after-geo')
   })
 
   casper.then(() => {
     casper.waitUntilVisible(page.selectors.item, () => {
-      casper.capture('./captures/give-help/need-list-manchester.png')
+      cap.snapshot('need-list-manchester')
       test.assertEval(() => {
         const helpRequests = __utils__.findAll('.requests-listing__link')
         return helpRequests.length > 0
@@ -37,7 +40,7 @@ casper.test.begin('Give Help', 2, function (test) {
     })
 
     casper.waitUntilVisible(page.selectors.item, () => {
-      casper.capture('./captures/give-help/need-list-leeds.png')
+      cap.snapshot('need-list-leeds')
       test.assertEval(() => {
         const helpRequests = __utils__.findAll('.requests-listing__link')
         return helpRequests.length > 0

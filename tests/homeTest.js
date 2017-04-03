@@ -1,11 +1,14 @@
 /* global casper, phantom */
 const pages = require('./pages')
-const Browser = require('./browser')
+
+casper.clear()
+phantom.clearCookies()
 
 casper.test.begin('Home', 2, function (test) {
   casper.start(pages.home.url, function () {
     casper.capture('./captures/home/initial-load.png')
     this.click('.js-location-pin')
+    test.assertVisible('.modal-body', 'modal appears')
     casper.capture('./captures/home/modal.png')
     casper.evaluate(() => {
       const sel = document.querySelector('.js-modal-location-dropdown')
@@ -17,8 +20,7 @@ casper.test.begin('Home', 2, function (test) {
     casper.capture('./captures/home/manchester-selected.png')
     casper.waitUntilVisible('.js-current-city', () => {
       casper.capture('./captures/home/manchester-specific.png')
-      test.assertSelectorHasText('.block__header', 'Street Support')
-      test.assertSelectorHasText('.js-city-label', 'in Manchester')
+      test.assertSelectorHasText('.block__header', 'Street Support in Manchester')
     })
   })
 
